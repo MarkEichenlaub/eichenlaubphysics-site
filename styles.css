@@ -5,7 +5,7 @@
   --muted: #7a7163;
   --rule: #e5dccc;
   --accent: #2a4a6d;
-  --max-width: 760px;
+  --max-width: 880px;
 }
 
 * { box-sizing: border-box; }
@@ -24,42 +24,43 @@ html, body {
 main {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 32px 24px 64px;
+  padding: 20px 24px 64px;
 }
 
 .hero {
-  text-align: center;
-  padding: 16px 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 8px 0;
 }
 
 .logo {
-  width: 100%;
-  max-width: 520px;
+  flex: 0 0 auto;
+  width: 42%;
+  max-width: 360px;
   height: auto;
   display: block;
-  margin: 0 auto;
 }
 
 .intro {
-  margin: 24px auto 48px;
-  max-width: 620px;
+  flex: 1 1 auto;
   color: var(--ink-soft);
-  font-size: 18px;
-  line-height: 1.65;
+  font-size: 17px;
+  line-height: 1.6;
 }
 
 .intro p {
-  margin: 0 0 16px;
+  margin: 0;
 }
 
 .booking {
-  margin-top: 48px;
+  margin-top: 24px;
 }
 
 .booking h2 {
-  font-size: 22px;
+  font-size: 20px;
   color: var(--ink);
-  margin: 0 0 16px;
+  margin: 0 0 12px;
   text-align: center;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -92,9 +93,15 @@ footer a:hover {
   text-decoration: underline;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   main { padding: 16px 16px 48px; }
   body { font-size: 16px; }
+  .hero {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+  .logo { width: 100%; max-width: 420px; }
   .intro { font-size: 17px; }
   #my-cal-inline { min-height: 580px; }
 }
