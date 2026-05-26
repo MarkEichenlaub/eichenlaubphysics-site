@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mark Eichenlaub Physics Mentorship</title>
+  <meta name="description" content="Physics and math mentorship for motivated students. Olympiads, advanced coursework, research projects, standardized tests, and self-study." />
+
+  <meta property="og:title" content="Mark Eichenlaub Physics Mentorship" />
+  <meta property="og:description" content="Physics and math mentorship for motivated students. Olympiads, advanced coursework, research projects, standardized tests, and self-study." />
+  <meta property="og:image" content="/logo.jpg" />
+  <meta property="og:type" content="website" />
+
+  <link rel="icon" type="image/jpeg" href="/logo.jpg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <img src="logo.jpg" alt="Mark Eichenlaub Physics Mentorship" class="logo" />
+    </header>
+
+    <section class="intro">
+      <p>
+        Physics and math mentorship for motivated students. In sessions, we
+        approach problem-solving as a collaborative and creative act. Sessions
+        can support self-study, research projects, tutoring for advanced
+        courses, and preparation for Olympiads, standardized tests (SAT,
+        MCAT, AP, etc.), and school and university qualification exams.
+      </p>
+    </section>
+
+    <section class="booking">
+      <h2>Book a session</h2>
+      <div id="my-cal-inline"></div>
+    </section>
+
+    <footer>
+      <p>
+        Questions? Email <a href="mailto:mark.d.eichenlaub@gmail.com">mark.d.eichenlaub@gmail.com</a>
+      </p>
+    </footer>
+  </main>
+
+  <!-- Cal.com inline embed -->
+  <script type="text/javascript">
+    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+    Cal("init", "tutoring", {origin: "https://app.cal.com"});
+    Cal.ns.tutoring("inline", {
+      elementOrSelector: "#my-cal-inline",
+      calLink: "markeichenlaub",
+      layout: "month_view"
+    });
+    Cal.ns.tutoring("ui", { theme: "light", hideEventTypeDetails: false, layout: "month_view" });
+  </script>
+</body>
+</html>
