@@ -12,32 +12,74 @@
   <meta property="og:type" content="website" />
 
   <link rel="icon" type="image/jpeg" href="/logo.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <main>
-    <header class="hero">
-      <img src="logo.jpg" alt="Mark Eichenlaub Physics Mentorship" class="logo" />
-      <div class="intro">
-        <p>
-          Physics and math mentorship for motivated students. In sessions, we
-          approach problem-solving as a collaborative and creative act. Sessions
-          can support self-study, research projects, tutoring for advanced
-          courses, and preparation for Olympiads, standardized tests (SAT,
-          MCAT, AP, etc.), and school and university qualification exams.
-        </p>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="wordmark" href="/">
+        <span class="mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21 L12 13"></path><path d="M12 13 L6 8"></path><path d="M12 13 L18 8"></path><path d="M12 13 L12 5"></path>
+            <circle cx="12" cy="13" r="2.1" fill="currentColor" stroke="none"></circle>
+            <circle cx="6" cy="8" r="1.5" fill="currentColor" stroke="none"></circle>
+            <circle cx="18" cy="8" r="1.5" fill="currentColor" stroke="none"></circle>
+            <circle cx="12" cy="4.4" r="1.5" fill="currentColor" stroke="none"></circle>
+          </svg>
+        </span>
+        <span class="wm-name">Eichenlaub Physics</span>
+      </a>
+      <a class="signin-link" href="https://portal.eichenlaubphysics.com">Student sign in</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Physics &amp; Mathematics Mentorship</p>
+        <h1>Problem-solving as a collaborative, creative act.</h1>
+        <ul class="focus">
+          <li>Olympiad training</li>
+          <li>Research projects</li>
+          <li>Advanced coursework</li>
+          <li>Standardized tests</li>
+          <li>Qualification exams</li>
+          <li>Self-study</li>
+        </ul>
       </div>
-    </header>
+      <div class="hero-logo">
+        <img src="logo.jpg" alt="Mark Eichenlaub Physics Mentorship" class="logo" />
+      </div>
+    </section>
+
+    <hr class="rule" />
 
     <section class="booking">
+      <p class="eyebrow center">Scheduling</p>
       <h2>Book a session</h2>
+      <p class="booking-sub">Choose a day and time that works for you. New students welcome.</p>
       <div id="my-cal-inline"></div>
     </section>
 
     <footer>
-      <p>
-        Questions? Email <a href="mailto:mark@eichenlaubphysics.com">mark@eichenlaubphysics.com</a>
-      </p>
+      <a class="wordmark" href="/">
+        <span class="mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21 L12 13"></path><path d="M12 13 L6 8"></path><path d="M12 13 L18 8"></path><path d="M12 13 L12 5"></path>
+            <circle cx="12" cy="13" r="2.1" fill="currentColor" stroke="none"></circle>
+            <circle cx="6" cy="8" r="1.5" fill="currentColor" stroke="none"></circle>
+            <circle cx="18" cy="8" r="1.5" fill="currentColor" stroke="none"></circle>
+            <circle cx="12" cy="4.4" r="1.5" fill="currentColor" stroke="none"></circle>
+          </svg>
+        </span>
+        <span class="wm-name">Eichenlaub Physics</span>
+      </a>
+      <p>Questions? Email <a href="mailto:mark@eichenlaubphysics.com">mark@eichenlaubphysics.com</a></p>
     </footer>
   </main>
 
@@ -50,7 +92,12 @@
       calLink: "markeichenlaub",
       layout: "month_view"
     });
-    Cal.ns.tutoring("ui", { theme: "light", hideEventTypeDetails: false, layout: "month_view" });
+    Cal.ns.tutoring("ui", {
+      theme: "light",
+      hideEventTypeDetails: false,
+      layout: "month_view",
+      cssVarsPerTheme: { light: { "cal-brand": "#2a4a6d" } }
+    });
   </script>
 </body>
 </html>
