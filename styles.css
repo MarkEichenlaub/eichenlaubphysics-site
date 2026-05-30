@@ -96,6 +96,10 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
 
 .rule { height: 1px; background: var(--rule); border: none; margin: 8px 0 40px; }
 
+/* ---- About --------------------------------------------------- */
+.about { padding: 36px 0 24px; }
+.about-body { font-size: 16px; color: var(--ink-soft); line-height: 1.65; max-width: 580px; margin: 0; }
+
 /* ---- Booking ------------------------------------------------- */
 .booking { padding-bottom: 72px; }
 .booking h2 { font-size: 30px; text-align: center; margin-bottom: 8px; }
