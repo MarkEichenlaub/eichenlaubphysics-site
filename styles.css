@@ -96,9 +96,30 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
 
 .rule { height: 1px; background: var(--rule); border: none; margin: 8px 0 40px; }
 
-/* ---- About --------------------------------------------------- */
-.about { padding: 36px 0 24px; }
-.about-body { font-size: 16px; color: var(--ink-soft); line-height: 1.65; max-width: 580px; margin: 0; }
+/* ---- Bio lines (under logo) ---------------------------------- */
+.bio-lines {
+  list-style: none; margin: 16px 0 0; padding: 0;
+  display: flex; flex-direction: column; gap: 4px;
+  text-align: center;
+}
+.bio-lines li {
+  font-family: var(--font-ui); font-size: 13.5px;
+  color: var(--ink-soft); line-height: 1.5;
+}
+
+/* ---- Accomplishments ----------------------------------------- */
+.accomplishments { padding: 36px 0 24px; }
+.accomplishment-list {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.accomplishment-list li {
+  font-size: 16px; color: var(--ink-soft); line-height: 1.5;
+  padding-left: 18px; position: relative;
+}
+.accomplishment-list li::before {
+  content: "—"; position: absolute; left: 0; color: var(--muted);
+}
 
 /* ---- Booking ------------------------------------------------- */
 .booking { padding-bottom: 72px; }
