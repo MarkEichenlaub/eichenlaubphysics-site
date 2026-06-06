@@ -126,14 +126,125 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
 .booking h2 { font-size: 30px; text-align: center; margin-bottom: 8px; }
 .booking-sub { text-align: center; color: var(--ink-soft); font-size: 15px; margin: 0 0 26px; }
 
-#my-cal-inline {
-  min-height: 640px; width: 100%;
-  background: var(--surface);
-  border: 1px solid var(--rule);
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: var(--shadow-sm);
+/* ---- Trial booking widget ------------------------------------ */
+.trial-widget {
+  max-width: 540px; margin: 0 auto;
+  background: var(--surface); border: 1px solid var(--rule);
+  border-radius: 14px; box-shadow: var(--shadow-sm); overflow: hidden;
 }
+.trial-loading {
+  padding: 48px 24px; text-align: center;
+  color: var(--muted); font-size: 14px; font-family: var(--font-mono);
+}
+.trial-cal { padding: 24px 24px 16px; }
+.trial-cal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 18px;
+}
+.trial-cal-header span {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 17px; color: var(--ink-strong);
+}
+.trial-cal-nav {
+  background: none; border: 1px solid var(--rule); border-radius: 6px;
+  width: 30px; height: 30px; cursor: pointer; display: grid; place-items: center;
+  color: var(--ink-soft); font-size: 15px; padding: 0;
+  transition: background .12s, border-color .12s;
+}
+.trial-cal-nav:hover { background: var(--surface-2); border-color: var(--muted); }
+.trial-cal-nav:disabled { opacity: .3; cursor: default; }
+.trial-dow-row {
+  display: grid; grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 6px;
+}
+.trial-dow {
+  text-align: center; font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--muted); padding: 4px 0;
+}
+.trial-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.trial-day {
+  aspect-ratio: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; border-radius: 6px;
+  font-size: 13px; color: var(--ink-soft); position: relative;
+  cursor: default; user-select: none;
+}
+.trial-day.other-month { color: var(--rule-strong); }
+.trial-day.past { color: var(--rule-strong); }
+.trial-day.has-slots {
+  cursor: pointer; color: var(--ink);
+  background: var(--surface-2); border: 1px solid var(--rule);
+}
+.trial-day.has-slots:hover { background: var(--accent-soft); border-color: var(--accent); }
+.trial-day.selected {
+  background: var(--accent) !important; color: var(--accent-ink) !important;
+  border-color: var(--accent) !important; font-weight: 600;
+}
+.trial-dot {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--accent); margin-top: 2px;
+}
+.trial-day.selected .trial-dot { background: var(--accent-ink); opacity: .7; }
+.trial-slots-section {
+  border-top: 1px solid var(--rule);
+  padding: 18px 24px 22px;
+}
+.trial-slots-label {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--muted); margin: 0 0 12px;
+}
+.trial-slots { display: flex; flex-wrap: wrap; gap: 8px; }
+.trial-slot {
+  font-size: 13px; padding: 6px 14px; border-radius: 6px;
+  border: 1px solid var(--rule); background: var(--surface-2);
+  color: var(--ink); cursor: pointer; font-family: var(--font-ui);
+  transition: background .12s, border-color .12s;
+}
+.trial-slot:hover { background: var(--accent-soft); border-color: var(--accent); }
+.trial-slot.selected {
+  background: var(--accent); color: var(--accent-ink);
+  border-color: var(--accent); font-weight: 500;
+}
+.trial-form-section {
+  border-top: 1px solid var(--rule);
+  padding: 18px 24px 22px;
+}
+.trial-form-title {
+  font-family: var(--font-display); font-weight: 600; font-size: 15px;
+  color: var(--ink-strong); margin: 0 0 14px;
+}
+.trial-field { margin-bottom: 12px; }
+.trial-field label {
+  display: block; font-size: 12px; font-weight: 500;
+  color: var(--ink-soft); margin-bottom: 4px;
+}
+.trial-field input, .trial-field textarea {
+  width: 100%; padding: 8px 11px; border-radius: 6px;
+  border: 1px solid var(--rule); background: var(--bg);
+  font-family: var(--font-ui); font-size: 14px; color: var(--ink);
+  outline: none; transition: border-color .12s;
+}
+.trial-field input:focus, .trial-field textarea:focus {
+  border-color: var(--accent);
+}
+.trial-field textarea { resize: vertical; min-height: 72px; }
+.trial-submit {
+  width: 100%; padding: 10px; border-radius: 7px;
+  background: var(--accent); color: var(--accent-ink);
+  border: none; font-family: var(--font-ui); font-size: 15px;
+  font-weight: 500; cursor: pointer; margin-top: 4px;
+  transition: opacity .12s;
+}
+.trial-submit:hover { opacity: .88; }
+.trial-submit:disabled { opacity: .5; cursor: default; }
+.trial-error { font-size: 13px; color: #c0392b; margin-top: 8px; }
+.trial-success { padding: 40px 24px; text-align: center; }
+.trial-success-icon { font-size: 36px; margin-bottom: 12px; }
+.trial-success h3 {
+  font-family: var(--font-display); font-size: 20px;
+  color: var(--ink-strong); margin: 0 0 8px;
+}
+.trial-success p { color: var(--ink-soft); font-size: 14px; margin: 0; }
 
 /* ---- Footer -------------------------------------------------- */
 footer {

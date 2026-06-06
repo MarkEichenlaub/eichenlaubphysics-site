@@ -77,10 +77,11 @@
     <hr class="rule" />
 
     <section class="booking">
-      <p class="eyebrow center">Scheduling</p>
-      <h2>Book a session</h2>
-      <p class="booking-sub">Choose a day and time that works for you. New students welcome.</p>
-      <div id="my-cal-inline"></div>
+      <p class="eyebrow center">Schedule a Trial</p>
+      <h2>Free 30-minute intro session</h2>
+      <p class="booking-sub">Pick a time to meet with Mark — no commitment, no fee.<br>
+        Or email directly: <a href="mailto:mark@eichenlaubphysics.com">mark@eichenlaubphysics.com</a></p>
+      <div id="trial-booking" class="trial-widget"></div>
     </section>
 
     <footer>
@@ -100,21 +101,157 @@
     </footer>
   </main>
 
-  <!-- Cal.com inline embed -->
-  <script type="text/javascript">
-    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-    Cal("init", "tutoring", {origin: "https://app.cal.com"});
-    Cal.ns.tutoring("inline", {
-      elementOrSelector: "#my-cal-inline",
-      calLink: "markeichenlaub",
-      layout: "month_view"
-    });
-    Cal.ns.tutoring("ui", {
-      theme: "light",
-      hideEventTypeDetails: false,
-      layout: "month_view",
-      cssVarsPerTheme: { light: { "cal-brand": "#2a4a6d" } }
-    });
+  <script>
+  (function () {
+    const SB_URL = 'https://nxvtaxbntqhcfqtazbnt.supabase.co'
+    const SB_KEY = 'sb_publishable_51M6zUC11pz8fIPkCvi4WQ_owCE99pB'
+    const TZ = 'America/Los_Angeles'
+    const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December']
+    const DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa']
+
+    const root = document.getElementById('trial-booking')
+    let allSlots = []       // ISO strings
+    let year, month         // currently displayed month
+    let selectedDate = null // 'YYYY-MM-DD'
+    let selectedSlot = null // ISO string
+    let submitting = false
+
+    function toLocalDate(iso) {
+      return new Date(iso).toLocaleDateString('en-CA', { timeZone: TZ })
+    }
+    function fmtTime(iso) {
+      return new Date(iso).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: TZ })
+    }
+    function fmtFullDate(dateStr) {
+      const d = new Date(dateStr + 'T12:00:00Z')
+      return d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', timeZone: TZ })
+    }
+    function dateKey(iso) { return toLocalDate(iso) }
+
+    function slotsByDate() {
+      const map = {}
+      for (const s of allSlots) {
+        const k = dateKey(s)
+        if (!map[k]) map[k] = []
+        map[k].push(s)
+      }
+      return map
+    }
+
+    function render() {
+      const map = slotsByDate()
+      const today = new Date().toLocaleDateString('en-CA', { timeZone: TZ })
+      const firstDay = new Date(year, month, 1).getDay()
+      const daysInMonth = new Date(year, month + 1, 0).getDate()
+
+      const slotsForDay = selectedDate ? (map[selectedDate] || []) : []
+
+      let html = '<div class="trial-cal">'
+      html += '<div class="trial-cal-header">'
+      const prevDisabled = (year < new Date().getFullYear() || (year === new Date().getFullYear() && month <= new Date().getMonth())) ? 'disabled' : ''
+      html += '<button class="trial-cal-nav" id="tcal-prev" ' + prevDisabled + '>&#8249;</button>'
+      html += '<span>' + MONTHS[month] + ' ' + year + '</span>'
+      html += '<button class="trial-cal-nav" id="tcal-next">&#8250;</button>'
+      html += '</div>'
+      html += '<div class="trial-dow-row">' + DAYS.map(d => '<div class="trial-dow">' + d + '</div>').join('') + '</div>'
+      html += '<div class="trial-grid">'
+      for (let i = 0; i < firstDay; i++) html += '<div class="trial-day other-month"></div>'
+      for (let d = 1; d <= daysInMonth; d++) {
+        const key = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(d).padStart(2, '0')
+        const isPast = key < today
+        const hasSlots = !!map[key]
+        const isSel = key === selectedDate
+        let cls = 'trial-day'
+        if (isPast) cls += ' past'
+        else if (hasSlots) cls += ' has-slots'
+        else cls += ' other-month'
+        if (isSel) cls += ' selected'
+        const dot = hasSlots && !isPast ? '<span class="trial-dot"></span>' : ''
+        const click = hasSlots && !isPast ? ' data-date="' + key + '"' : ''
+        html += '<div class="' + cls + '"' + click + '>' + d + dot + '</div>'
+      }
+      html += '</div></div>'
+
+      if (selectedDate && slotsForDay.length > 0) {
+        html += '<div class="trial-slots-section">'
+        html += '<p class="trial-slots-label">' + fmtFullDate(selectedDate) + '</p>'
+        html += '<div class="trial-slots">'
+        for (const s of slotsForDay) {
+          const isSel = s === selectedSlot
+          html += '<button class="trial-slot' + (isSel ? ' selected' : '') + '" data-slot="' + s + '">' + fmtTime(s) + ' PT</button>'
+        }
+        html += '</div></div>'
+      }
+
+      if (selectedSlot) {
+        html += '<div class="trial-form-section">'
+        html += '<p class="trial-form-title">Confirm your session</p>'
+        html += '<form id="trial-form">'
+        html += '<div class="trial-field"><label>Your name</label><input name="name" required placeholder="Full name" autocomplete="name" /></div>'
+        html += '<div class="trial-field"><label>Email</label><input name="email" type="email" required placeholder="you@example.com" autocomplete="email" /></div>'
+        html += '<div class="trial-field"><label>About you <span style="font-weight:400;color:var(--muted)">(optional)</span></label><textarea name="notes" placeholder="What are you hoping to work on? Current level, goals, any context…"></textarea></div>'
+        html += '<button class="trial-submit" type="submit"' + (submitting ? ' disabled' : '') + '>' + (submitting ? 'Booking…' : 'Book session') + '</button>'
+        html += '<div id="trial-form-error" class="trial-error"></div>'
+        html += '</form></div>'
+      }
+
+      root.innerHTML = html
+      document.getElementById('tcal-prev')?.addEventListener('click', () => { if (month === 0) { month = 11; year-- } else month--; selectedDate = null; selectedSlot = null; render() })
+      document.getElementById('tcal-next')?.addEventListener('click', () => { if (month === 11) { month = 0; year++ } else month++; selectedDate = null; selectedSlot = null; render() })
+      root.querySelectorAll('[data-date]').forEach(el => el.addEventListener('click', () => { selectedDate = el.dataset.date; selectedSlot = null; render() }))
+      root.querySelectorAll('[data-slot]').forEach(el => el.addEventListener('click', () => { selectedSlot = el.dataset.slot; render() }))
+      document.getElementById('trial-form')?.addEventListener('submit', handleSubmit)
+    }
+
+    async function handleSubmit(e) {
+      e.preventDefault()
+      if (submitting) return
+      submitting = true
+      render()
+      const fd = new FormData(e.target)
+      try {
+        const resp = await fetch(SB_URL + '/functions/v1/book-trial', {
+          method: 'POST',
+          headers: { 'apikey': SB_KEY, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ slot: selectedSlot, name: fd.get('name'), email: fd.get('email'), notes: fd.get('notes') || '' })
+        })
+        const data = await resp.json()
+        if (!resp.ok) throw new Error(data.error || 'Booking failed')
+        root.innerHTML = '<div class="trial-success"><div class="trial-success-icon">✓</div><h3>You\'re booked!</h3><p>A calendar invite is on its way to ' + fd.get('email') + '.<br>Mark will be in touch before your session.</p></div>'
+      } catch (err) {
+        submitting = false
+        render()
+        const errEl = document.getElementById('trial-form-error')
+        if (errEl) errEl.textContent = err.message || 'Something went wrong — try again or email mark@eichenlaubphysics.com'
+      }
+    }
+
+    async function init() {
+      root.innerHTML = '<div class="trial-loading">Loading availability…</div>'
+      const now = new Date()
+      year = now.getFullYear()
+      month = now.getMonth()
+      const from = now.toLocaleDateString('en-CA', { timeZone: TZ })
+      const future = new Date(now)
+      future.setDate(future.getDate() + 60)
+      const to = future.toLocaleDateString('en-CA', { timeZone: TZ })
+      try {
+        const resp = await fetch(SB_URL + '/functions/v1/get-trial-availability', {
+          method: 'POST',
+          headers: { 'apikey': SB_KEY, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ from, to })
+        })
+        const data = await resp.json()
+        allSlots = data.slots || []
+      } catch (e) {
+        root.innerHTML = '<div class="trial-loading">Could not load availability. Please email <a href="mailto:mark@eichenlaubphysics.com">mark@eichenlaubphysics.com</a> to schedule.</div>'
+        return
+      }
+      render()
+    }
+
+    init()
+  })()
   </script>
 </body>
 </html>
