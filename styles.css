@@ -125,6 +125,7 @@ a:hover { text-decoration: underline; text-underline-offset: 2px; }
 .booking { padding-bottom: 72px; }
 .booking h2 { font-size: 30px; text-align: center; margin-bottom: 8px; }
 .booking-sub { text-align: center; color: var(--ink-soft); font-size: 15px; margin: 0 0 26px; }
+.rate-note { text-align: center; color: var(--muted); font-size: 13px; margin: -14px 0 26px; }
 
 /* ---- Trial booking widget ------------------------------------ */
 .trial-widget {
