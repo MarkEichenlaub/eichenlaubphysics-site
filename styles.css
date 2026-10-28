@@ -349,3 +349,4 @@ footer p { color: var(--muted); font-size: 13.5px; margin: 0; }
   .principles, .cards, .who, .quotes { grid-template-columns: 1fr; }
   .section h2 { font-size: 26px; }
 }
+.section-lede { color: var(--ink-soft); margin: -6px 0 22px; }
