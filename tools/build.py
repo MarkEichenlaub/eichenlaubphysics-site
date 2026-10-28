@@ -11,7 +11,7 @@ keeps it off the live page (the editor still shows it). The editor at /draft/
 saves its HTML through the save_site_draft RPC; --pull fetches it, strips the
 editor's handles and attributes, and writes it back here.
 """
-import difflib, json, pathlib, re, sys, urllib.request
+import difflib, json, pathlib, re, sys, time, urllib.request
 from bs4 import BeautifulSoup
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -80,9 +80,9 @@ def render(sections_html, draft):
     page = page.replace('{{SECTIONS}}', '\n\n'.join(parts))
     if draft:
         page = page.replace('{{HEAD_EXTRA}}', '  <meta name="robots" content="noindex, nofollow" />\n'
-                            '  <link rel="stylesheet" href="/draft/editor.css" />')
+                            f'  <link rel="stylesheet" href="/draft/editor.css?v={int(time.time())}" />')
         page = page.replace('{{SCRIPT}}', '  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.3/Sortable.min.js"></script>\n'
-                            '  <script src="/draft/editor.js"></script>')
+                            f'  <script src="/draft/editor.js?v={int(time.time())}"></script>')
         page = page.replace('<title>Mark Eichenlaub Physics Mentorship</title>', '<title>Draft · Eichenlaub Physics</title>')
     else:
         page = page.replace('{{HEAD_EXTRA}}\n', '')
@@ -118,7 +118,8 @@ def main():
             print(line)
         src.write_text(new, encoding='utf8', newline='\n')
     if '--seed' in args:
-        print('seeded', rpc('save_site_draft', {'p_key': draft_key(), 'p_html': src.read_text(encoding='utf8')}))
+        cur = rpc('get_site_draft', {'p_key': draft_key()})
+        print('seeded', rpc('save_site_draft', {'p_key': draft_key(), 'p_html': src.read_text(encoding='utf8'), 'p_base': cur[0]['updated_at']}))
     html = src.read_text(encoding='utf8')
     (ROOT / 'draft' / 'index.html').write_text(render(html, True), encoding='utf8', newline='\n')
     if '--draft-only' not in args:

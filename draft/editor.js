@@ -133,7 +133,11 @@
     s.className = cls
   }
 
+  let base = null      // server timestamp of the copy this tab is editing
+  let dirty = false
+
   function scheduleSave() {
+    dirty = true
     setStatus('Saving…')
     clearTimeout(saveTimer)
     saveTimer = setTimeout(save, 1200)
@@ -141,45 +145,72 @@
 
   async function save(keepalive = false) {
     clearTimeout(saveTimer)
+    if (!dirty) return
     const html = serialize()
     localStorage.setItem('ep-draft-html', html)
-    localStorage.setItem('ep-draft-at', String(Date.now()))
-    if (!KEY) { setStatus('Saved in this browser only', 'warn'); return }
+    if (!KEY) { dirty = false; setStatus('Saved in this browser only', 'warn'); return }
     try {
       const r = await fetch(SB_URL + '/rest/v1/rpc/save_site_draft', {
         method: 'POST', keepalive,
         headers: { apikey: SB_KEY, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ p_key: KEY, p_html: html }),
+        body: JSON.stringify({ p_key: KEY, p_html: html, p_base: base }),
       })
-      if (!r.ok) throw new Error((await r.json()).message || r.status)
-      localStorage.setItem('ep-draft-server-at', String(Date.now()))
+      const body = await r.json()
+      if (!r.ok) {
+        if (/stale/.test(body.message || '')) {
+          // a newer copy was saved elsewhere (another tab, or Claude): switch to it
+          dirty = false
+          await load('This page was updated elsewhere, so I loaded the newest version. Your last change in this tab wasn’t kept.')
+          return
+        }
+        throw new Error(body.message || r.status)
+      }
+      base = body
+      dirty = false
       setStatus('Saved ' + new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }), 'ok')
     } catch (e) {
       setStatus('Not saved to the server (' + e.message + '). Your edits are kept in this browser.', 'warn')
     }
   }
 
-  async function load() {
+  async function fetchDraft() {
+    const r = await fetch(SB_URL + '/rest/v1/rpc/get_site_draft', {
+      method: 'POST', headers: { apikey: SB_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ p_key: KEY }),
+    })
+    const rows = await r.json()
+    return Array.isArray(rows) && rows[0] ? rows[0] : null
+  }
+
+  async function load(message) {
     let html = null
     if (KEY) {
       try {
-        const r = await fetch(SB_URL + '/rest/v1/rpc/get_site_draft', {
-          method: 'POST', headers: { apikey: SB_KEY, 'Content-Type': 'application/json' },
-          body: JSON.stringify({ p_key: KEY }),
-        })
-        const rows = await r.json()
-        if (Array.isArray(rows) && rows[0] && /<section/.test(rows[0].html)) html = rows[0].html
-      } catch (e) { /* fall back to the local copy */ }
+        const row = await fetchDraft()
+        if (row) { base = row.updated_at; if (/<section/.test(row.html)) html = row.html }
+      } catch (e) {
+        const local = localStorage.getItem('ep-draft-html') || ''
+        if (/<section/.test(local)) html = local
+      }
+    } else {
+      const local = localStorage.getItem('ep-draft-html') || ''
+      if (/<section/.test(local)) html = local
     }
-    const localAt = +localStorage.getItem('ep-draft-at') || 0
-    const serverAt = +localStorage.getItem('ep-draft-server-at') || 0
-    const local = localStorage.getItem('ep-draft-html') || ''
-    if (/<section/.test(local) && (!html || localAt > serverAt + 2000)) html = local
     if (html) page.innerHTML = html
     decorate()
     current = serialize()
-    setStatus(KEY ? 'All changes saved' : 'Saved in this browser only', KEY ? 'ok' : 'warn')
-    if (html && localAt > serverAt + 2000) scheduleSave()
+    undoStack = []
+    if (message) setStatus(message, 'warn')
+    else setStatus(KEY ? 'All changes saved' : 'Saved in this browser only', KEY ? 'ok' : 'warn')
+  }
+
+  // when you come back to a tab left open, pick up anything saved since
+  async function refreshIfStale() {
+    if (!KEY || dirty) return
+    try {
+      const row = await fetchDraft()
+      if (row && base && row.updated_at !== base) await load('Loaded the newest version of the draft.')
+    } catch (e) { /* keep what's on screen */ }
   }
 
   // ---- events ------------------------------------------------------------
@@ -245,7 +276,8 @@
     const inText = e.target.closest && e.target.closest('[contenteditable="true"]')
     if ((e.ctrlKey || e.metaKey) && !e.shiftKey && e.key.toLowerCase() === 'z' && !inText) { e.preventDefault(); undo() }
   })
-  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') save(true) })
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') save(true); else refreshIfStale() })
+  window.addEventListener('focus', refreshIfStale)
 
   // ---- toolbar ------------------------------------------------------------
   function renderTrash() {
