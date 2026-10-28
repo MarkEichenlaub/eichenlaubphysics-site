@@ -263,3 +263,89 @@ footer p { color: var(--muted); font-size: 13.5px; margin: 0; }
   .hero-logo .logo { max-width: 300px; }
   .booking h2 { font-size: 26px; }
 }
+
+/* ============================================================
+   Expanded page: nav, about, approach, what you get, FAQ.
+   Each section stands alone; .slot blocks stay hidden until
+   real material (testimonials, photo) exists.
+   ============================================================ */
+.header-right { display: flex; align-items: center; gap: 22px; }
+.site-nav { display: flex; gap: 18px; }
+.site-nav a { font-size: 13.5px; color: var(--ink-soft); }
+.site-nav a:hover { color: var(--ink-strong); }
+
+.hero-lede { font-size: 17px; color: var(--ink-soft); margin: 0 0 22px; max-width: 34em; }
+.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+.btn {
+  display: inline-block; font-size: 15px; font-weight: 500; padding: 10px 18px;
+  border-radius: 7px; border: 1px solid var(--accent);
+  background: var(--accent); color: var(--accent-ink);
+}
+.btn:hover { text-decoration: none; opacity: .9; }
+.btn.ghost { background: transparent; color: var(--accent); border-color: var(--rule-strong); }
+.btn.ghost:hover { background: var(--surface-2); }
+
+.section { padding: 8px 0 40px; scroll-margin-top: 70px; }
+.section h2 { font-size: 30px; margin-bottom: 18px; }
+.section p { margin: 0 0 14px; }
+.prose { max-width: 40em; font-size: 16.5px; color: var(--ink); }
+.prose p { margin: 0 0 14px; }
+
+/* About: photo beside text */
+.about-grid { display: grid; grid-template-columns: 200px 1fr; gap: 36px; align-items: start; }
+.portrait {
+  width: 200px; aspect-ratio: 4 / 5; border-radius: 12px; object-fit: cover;
+  background: var(--surface-2); border: 1px solid var(--rule); box-shadow: var(--shadow-sm);
+}
+.about-grid.no-photo { grid-template-columns: 1fr; }
+.about-grid.no-photo .portrait { display: none; }
+
+/* Approach: short numbered principles */
+.principles { list-style: none; margin: 6px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 18px 36px; counter-reset: p; }
+.principles li { counter-increment: p; position: relative; padding-left: 38px; }
+.principles li::before {
+  content: counter(p); position: absolute; left: 0; top: 2px;
+  font-family: var(--font-mono); font-size: 12px; color: var(--accent);
+  width: 24px; height: 24px; border-radius: 50%; border: 1px solid var(--rule-strong);
+  display: grid; place-items: center; background: var(--surface);
+}
+.principles h3, .cards h3 { font-family: var(--font-display); font-size: 18px; font-weight: 600; color: var(--ink-strong); margin: 0 0 4px; }
+.principles p, .cards p { font-size: 15px; color: var(--ink-soft); margin: 0; }
+
+/* What you get: cards */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 6px; }
+.card {
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 12px;
+  padding: 18px 18px 16px; box-shadow: var(--shadow-sm);
+}
+.card .k { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; }
+
+/* Who it's for */
+.who { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 36px; list-style: none; margin: 0; padding: 0; }
+.who li { font-size: 15.5px; color: var(--ink-soft); padding-left: 18px; position: relative; }
+.who li::before { content: "—"; position: absolute; left: 0; color: var(--muted); }
+.who strong { color: var(--ink-strong); font-weight: 600; }
+
+/* FAQ */
+.faq details { border-top: 1px solid var(--rule); padding: 12px 0; }
+.faq details:last-child { border-bottom: 1px solid var(--rule); }
+.faq summary { cursor: pointer; font-weight: 500; color: var(--ink-strong); list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--font-mono); color: var(--muted); }
+.faq details[open] summary::after { content: "−"; }
+.faq details p { margin: 10px 0 2px; color: var(--ink-soft); font-size: 15px; max-width: 42em; }
+
+/* Testimonials: hidden until there are real ones */
+.quotes { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.quote { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 18px 20px; margin: 0; }
+.quote p { font-family: var(--font-display); font-size: 17px; font-style: italic; color: var(--ink-strong); margin: 0 0 10px; }
+.quote cite { font-style: normal; font-size: 13px; color: var(--muted); }
+.slot[hidden] { display: none; }
+
+@media (max-width: 760px) {
+  .site-nav { display: none; }
+  .about-grid { grid-template-columns: 1fr; }
+  .portrait { width: 160px; }
+  .principles, .cards, .who, .quotes { grid-template-columns: 1fr; }
+  .section h2 { font-size: 26px; }
+}
