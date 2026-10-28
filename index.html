@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
   <header class="site-header">
@@ -34,56 +34,134 @@
         </span>
         <span class="wm-name">Eichenlaub Physics</span>
       </a>
-      <a class="signin-link" href="https://portal.eichenlaubphysics.com">Student sign in</a>
+      <div class="header-right">
+        <nav class="site-nav">
+          <a href="#about">About</a>
+          <a href="#what-you-get">What I offer</a>
+          <a href="#approach">How I teach</a>
+          <a href="#faq">FAQ</a>
+          <a href="#book">Book a trial</a>
+        </nav>
+        <a class="signin-link" href="https://portal.eichenlaubphysics.com">Student sign in</a>
+      </div>
     </div>
   </header>
 
   <main class="wrap">
-    <section class="hero">
-      <div class="hero-copy">
-        <p class="eyebrow">Physics &amp; Mathematics Mentorship</p>
-        <h1>Problem solving with curiosity, creativity, and confidence.</h1>
-        <ul class="focus">
-          <li>Olympiad training</li>
-          <li>Research projects</li>
-          <li>Advanced coursework</li>
-          <li>Standardized tests</li>
-          <li>Qualification exams</li>
-          <li>Self-study</li>
-        </ul>
-      </div>
-      <div class="hero-logo">
-        <img src="logo.jpg" alt="Mark Eichenlaub Physics Mentorship" class="logo" />
-        <ul class="bio-lines">
-          <li>BS, Physics, Caltech</li>
-          <li>PhD, Physics, University of Maryland</li>
-          <li>Former IPhO Team Leader, USA</li>
-          <li>Physics Curriculum Lead, Art of Problem Solving</li>
-        </ul>
-      </div>
-    </section>
+<div id="page">
+<section class="hero" id="top">
+<div class="hero-copy">
+<p class="eyebrow">Physics & Mathematics Mentorship</p>
+<h1>Problem solving with curiosity, creativity, and confidence.</h1>
+<p class="hero-lede">I take on a small number of students each year for one-on-one work in physics and math, often focused on physics contests.</p>
+<ul class="focus">
+<li>Olympiad training</li>
+<li>Research projects</li>
+<li>Advanced coursework</li>
+<li>Standardized tests</li>
+<li>Qualifying exams</li>
+<li>Self-study</li>
+</ul>
+<div class="hero-cta">
+<a class="btn" href="#book">Book a free trial</a>
+<a class="btn ghost" href="mailto:mark@eichenlaubphysics.com">Contact me</a>
+</div>
+</div>
+<div class="hero-logo">
+<img alt="Mark Eichenlaub Physics Mentorship" class="logo" src="/logo.jpg">
+<ul class="bio-lines">
+<li>BS, Physics, Caltech</li>
+<li>PhD, Physics, University of Maryland</li>
+<li>US Physics Team Coach, 2016 to 2021</li>
+<li>Former IPhO Team Leader, USA</li>
+<li>Professional Physics Curriculum Developer</li>
+</ul>
+</div>
+</section>
 
-    <hr class="rule" />
+<hr class="rule" />
 
-    <section class="accomplishments">
-      <p class="eyebrow">Former mentees selected accomplishments</p>
-      <ul class="accomplishment-list">
-        <li>IPhO Gold Medalists</li>
-        <li>Regeneron STS Scholars</li>
-        <li>Admission to top schools including Harvard, MIT, Caltech, Stanford, Johns Hopkins Medical School</li>
-      </ul>
-    </section>
+<section class="section" data-nav="About" id="about">
+<p class="eyebrow">About Mark</p>
+<div class="about-grid">
+<img alt="Mark Eichenlaub" class="portrait" src="/mark.jpg">
+<div class="prose"><p>I'm always impressed by the creativity and resilience students show when they have a great problem to work on. Competition physics is full of great problems, and it's where I've spent most of my career.</p><p>From 2016 to 2021 I coached the US Physics Team, including as team leader at the International Physics Olympiad. I've helped write the F=ma and USAPhO exams and graded USAPhO. I bring that experience to preparing my students.</p><p>Since 2018 I've been a professional physics curriculum developer. I designed a well-known online olympiad training course, and I now lead a team writing physics courses that run from middle school through olympiad preparation.</p><p>My PhD at the University of Maryland was in physics education research. My thesis was about how students learn to use math to make sense of physical phenomena: when an equation means something to them, and when they're only moving symbols around. While I was there, I taught and helped design the introductory physics course for life-science majors.</p><p>I've been teaching physics since I was an undergraduate at Caltech. I've designed and taught physics and astronomy courses at Bucknell University, Johns Hopkins CTY, and the Stanford Pre-Collegiate Summer Institutes, and I've tutored private students from middle schoolers to adults.</p><p>I was also active for years answering physics questions online. You can read my answers on my <a class="profile-link" href="https://physics.stackexchange.com/users/74/mark-eichenlaub" rel="noopener" target="_blank">Physics Stack Exchange profile</a> and my <a class="profile-link" href="https://www.quora.com/profile/Mark-Eichenlaub" rel="noopener" target="_blank">Quora profile</a>.</p></div>
+</div>
+</section>
 
-    <hr class="rule" />
+<hr class="rule" />
 
-    <section class="booking">
-      <p class="eyebrow center">Schedule a Trial</p>
-      <h2>Free 30-minute intro session</h2>
-      <p class="booking-sub">Pick a time to meet with Mark — no commitment, no fee.<br>
+<section class="section" data-nav="What I offer" id="what-you-get">
+<p class="eyebrow">What I offer</p>
+<p class="prose section-lede">I can work with you on school material, but for most students I provide a complete learning environment: readings, assignments, and mock exams that closely mimic the real tests. I also write a report summarizing our plan and recent progress every ten sessions. Our one-on-one video sessions are spent actively solving problems together. I'll answer your questions and make sure you understand the logistics of physics tests like the F=ma and USAPhO exams.</p>
+<div class="cards">
+<div class="card"><h3>Live sessions</h3><p>One-on-one over Google Meet, usually an hour, on a shared whiteboard built for physics: typed and handwritten math, diagrams, graphs, and calculators. It works on a laptop or an iPad.</p></div>
+<div class="card"><h3>A record of every session</h3><p>After each session, a written summary and the whole whiteboard as a PDF go into your custom portal, so you can go back to any problem we worked.</p></div><div class="card"><h3>Parents in the loop</h3><p>Parents get their own portal login and emails with the plan, session summaries, reports, and invoices, and they can book a check-in call with me.</p></div>
+<div class="card"><h3>Problems picked for you</h3><p>Problems chosen for you from past F=ma, USAPhO, IPhO, and EuPhO exams, national olympiads from around the world, and select textbooks. Olympiad problems come with IPhO-style answer sheets.</p></div>
+<div class="card"><h3>Homework and questions</h3><p>You get homework picked for you after each session. You upload your work in the portal, and before we meet again I read it and give feedback, along with answers to any questions you email me.</p></div>
+<div class="card"><h3>Practice exams</h3><p>Past F=ma and USAPhO exams and mock exams I've written, timed in the portal, with a question-by-question report we go over together. Your progress is automatically tracked and visualized.</p></div>
+<div class="card"><h3>Daily fluency drills</h3><p>Five minutes a day of spaced practice on the formulas and math you need at your fingertips, so they don't slow you down on a contest.</p></div>
+<div class="card"><h3>Handouts written for you</h3><p>When a topic needs more than a problem set, I write a handout on it, like matrices for olympiad physics or units inside logarithms.</p></div>
+<div class="card"><h3>A report every ten sessions</h3><p>At the end of each block of ten sessions, we look back together and I write a report: our goals going in, what we did, and the goals for the next block.</p></div>
+</div>
+</section>
+
+<hr class="rule" />
+
+<section class="section" id="who">
+<p class="eyebrow">Who I work with</p>
+<ul class="who">
+<li><strong>Olympiad students</strong> from a first F=ma exam through USAPhO and IPhO</li>
+<li><strong>Research students</strong> who want a physicist to talk to about a project</li>
+<li><strong>Students ahead of their classes</strong> self-studying AP Physics C, college-level mechanics and E&M, or the math physics needs</li>
+<li><strong>Exam prep</strong> for AP Physics, the MCAT, and other standardized tests</li>
+<li><strong>Graduate students</strong> studying for PhD qualifying exams</li>
+<li><strong>Self-learners</strong> of any age working through a topic on their own</li>
+</ul>
+</section>
+
+<hr class="rule" />
+
+<section class="accomplishments" id="accomplishments">
+<p class="eyebrow">Former mentees' selected accomplishments</p>
+<ul class="accomplishment-list">
+<li>IPhO Gold Medalists</li>
+<li>Regeneron STS Scholars</li>
+<li>Admission to top schools, including Harvard, MIT, Caltech, Stanford, and Johns Hopkins Medical School</li>
+</ul>
+</section>
+
+<hr class="rule" />
+
+<section class="section" data-nav="How I teach" id="approach">
+<p class="eyebrow">How I teach</p>
+<ol class="principles">
+<li><h3>Physical meaning first</h3><p>Even when a student has the math to do a problem, I start as close to the real phenomenon as I can, so physics doesn't turn into manipulating formulas. We look at extreme cases and check units before the heavy math, and we check the answer against our intuition after.</p></li>
+<li><h3>You do the reasoning</h3><p>Most of a session is me asking questions and you figuring out the answers. When you're stuck, I give the smallest hint that gets you moving again. One of the best signs of progress is when you start catching your own mistakes.</p></li>
+<li><h3>Judgment, not only technique</h3><p>Hard problems take judgment: what belongs in the model, how long to stay on a problem, and whether there's a shorter way than bashing through. When you get a problem right but it took a long time, we go back and find the shortcut together.</p></li>
+<li><h3>Every problem connects</h3><p>Each problem we do is saved and tagged. When a technique shows up again in a new setting, we pull up the old problem and see how they're related.</p></li>
+<li><h3>Honest about difficulty</h3><p>I won't tell you something is easy. Physics is hard, and when something that made sense in the textbook gets confusing on a hard problem, that's okay. It means you're learning.</p></li>
+<li><h3>A plan with dates on it</h3><p>Each student has a written plan with goals tied to the calendar, like the F=ma exam in February. We measure what we've covered against it, I tell you if we start falling behind, and I change it as I learn what you need.</p></li>
+</ol>
+</section>
+
+<hr class="rule" />
+
+<section class="section faq" data-nav="FAQ" id="faq">
+<p class="eyebrow">Questions</p>
+<div class="faq-list"><details open><summary>Are sessions online?</summary><p>Yes. We meet on Google Meet and work on a shared whiteboard in the portal. A tablet helps, since we'll want to write equations and draw diagrams on the fly, but it isn't required.</p></details><details open><summary>How often should we meet?</summary><p>I usually recommend one or two sessions a week. Before a contest, some students meet more often.</p></details><details open><summary>What does it cost?</summary><p>$3,000 for a ten-session cycle. This includes ten hour-long one-on-one meetings, custom homework assignments between meetings, mock exams, my feedback on your work before each session, and a detailed report each cycle on our progress and goals for the upcoming cycle. It also includes unlimited questions by email between sessions. The half-hour intro session is free.</p></details><details open><summary>What if we need to cancel or reschedule?</summary><p>Just let me know, or move the session yourself in the portal. I try to be as flexible as I can about cancellations, time changes, and extra sessions, since most students are balancing a lot of activities.</p></details><details open><summary>What happens in the intro session?</summary><p>I like to hear about the student: their background, what interests them, and their goals. I'll answer your questions about how I work. If the student can join, I'm happy to meet them too.</p></details><details open><summary>When should a student start preparing for F=ma?</summary><p>For students who put in a real study effort, it's typical to come close to passing the F=ma exam as a freshman, and to pass it and get invited to USAPhO as a sophomore. Some freshmen pass it, too.</p></details><details open><summary>Do I need to be at olympiad level already?</summary><p>No. Some students come in with a contest in mind, and some just like physics and want more of it than school gives them. We start where you are.</p></details></div></section>
+
+<hr class="rule" />
+
+<section class="booking section" data-nav="Book a trial" id="book">
+<p class="eyebrow center">Schedule a Trial</p>
+<h2>Free 30-minute intro session</h2>
+<p class="booking-sub">Pick a time to meet with me. There's no commitment and no fee.<br>
         Or email directly: <a href="mailto:mark@eichenlaubphysics.com">mark@eichenlaubphysics.com</a></p>
-      <p class="rate-note">Trial sessions are free. Ongoing mentorship is $300/hr.</p>
-      <div id="trial-booking" class="trial-widget"></div>
-    </section>
+<p class="rate-note">Trial sessions are free. Ongoing mentorship is $300/hr.</p>
+<div class="trial-widget" id="trial-booking"></div>
+</section>
+</div>
 
     <footer>
       <a class="wordmark" href="/">
@@ -101,7 +179,6 @@
       <p>Questions? Email <a href="mailto:mark@eichenlaubphysics.com">mark@eichenlaubphysics.com</a></p>
     </footer>
   </main>
-
   <script>
   (function () {
     const SB_URL = 'https://nxvtaxbntqhcfqtazbnt.supabase.co'
@@ -254,5 +331,7 @@
     init()
   })()
   </script>
+
+
 </body>
 </html>
