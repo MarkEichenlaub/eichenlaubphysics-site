@@ -50,6 +50,9 @@ def clean(html):
             el.attrs.pop('class', None)
         if el.get('style', None) is not None and not el['style'].strip():
             del el['style']
+    for el in soup.find_all(['h1', 'h2', 'h3', 'p', 'li']):
+        if not el.get_text(strip=True).replace(' ', '') and not el.find(['img', 'a']):
+            el.decompose()
     sections = soup.find_all('section', recursive=False)
     return '\n\n'.join(s.decode(formatter='html5') for s in sections) + '\n'
 

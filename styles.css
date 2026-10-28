@@ -350,3 +350,6 @@ footer p { color: var(--muted); font-size: 13.5px; margin: 0; }
   .section h2 { font-size: 26px; }
 }
 .section-lede { color: var(--ink-soft); margin: -6px 0 22px; }
+.hero-contact { margin: 14px 0 0; font-size: 14px; color: var(--ink-soft); }
+.prose a, .hero-contact a { text-decoration: underline; text-underline-offset: 2px; }
+.profile-link::after { content: " \2197"; font-size: .85em; }
